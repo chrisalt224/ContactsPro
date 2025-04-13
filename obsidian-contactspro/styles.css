@@ -1,0 +1,385 @@
+/* Contacts Plugin with Graph View Styling */
+
+/* Modal styling */
+.contacts-modal input,
+.contacts-modal textarea,
+.file-selector-modal input,
+.contacts-selector-modal input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+}
+
+.contacts-modal label,
+.file-selector-modal label,
+.contacts-selector-modal label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.contacts-modal .button-container,
+.file-selector-modal .button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Network View Styling */
+.contacts-network-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.contacts-network-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+}
+
+.contacts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 15px;
+  margin-bottom: 20px;
+}
+
+.contact-node {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.contact-node:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-node.selected {
+  border: 2px solid var(--interactive-accent);
+}
+
+/* Contact Details Container */
+.contacts-details-container {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: var(--background-secondary);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-details-full {
+  margin-top: 15px;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 10px;
+  margin-bottom: 8px;
+  align-items: start;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.detail-section-title {
+  font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: var(--text-normal);
+  border-bottom: 1px solid var(--background-modifier-border);
+  padding-bottom: 3px;
+}
+
+.detail-notes {
+  white-space: pre-wrap;
+  padding: 10px;
+  background-color: var(--background-primary);
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.detail-links {
+  margin-top: 5px;
+}
+
+.detail-link {
+  padding: 5px 0;
+}
+
+.link-text {
+  color: var(--text-accent);
+  text-decoration: none;
+}
+
+.link-text:hover {
+  text-decoration: underline;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.contact-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Contact card styling */
+.contact-card {
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid var(--interactive-accent);
+  background-color: var(--background-secondary);
+  height: 100%;
+}
+
+.contact-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--text-normal);
+}
+
+.contact-card .contact-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 5px 10px;
+  align-items: center;
+}
+
+.contact-card .contact-details .label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.contact-card .contact-links {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.contact-card .contact-links ul {
+  margin-top: 5px;
+  padding-left: 20px;
+}
+
+/* Graph View Styling */
+.contacts-graph-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.graph-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.contacts-graph-svg {
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-primary);
+}
+
+.graph-controls {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: var(--background-secondary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.graph-control-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.graph-control-btn:hover {
+  background-color: var(--interactive-accent-hover);
+}
+
+.graph-search-container {
+  display: flex;
+  align-items: center;
+}
+
+.graph-search-input {
+  width: 180px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  background-color: var(--background-primary);
+  color: var(--text-normal);
+  font-size: 12px;
+}
+
+.graph-loading,
+.graph-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: var(--background-secondary);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.graph-error {
+  color: var(--text-error);
+}
+
+/* Graph SVG Elements */
+.node {
+  cursor: pointer;
+}
+
+.node-circle {
+  stroke: var(--background-primary);
+  transition: r 0.2s ease, fill-opacity 0.2s ease;
+}
+
+.node-label {
+  font-size: 12px;
+  fill: var(--text-normal);
+  pointer-events: none;
+  user-select: none;
+}
+
+.node:hover .node-circle {
+  filter: brightness(1.2);
+}
+
+.graph-legend {
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+.graph-legend text {
+  fill: var(--text-normal);
+}
+
+.link {
+  transition: stroke-opacity 0.2s ease;
+}
+
+/* File selector modal */
+.file-selector-modal .search-input,
+.contacts-selector-modal .contact-search-input {
+  margin-bottom: 15px;
+}
+
+.files-list,
+.contacts-selector-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+}
+
+.file-item,
+.contact-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.file-item:hover,
+.contact-item:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+.file-item:last-child,
+.contact-item:last-child {
+  border-bottom: none;
+}
+
+.contact-name {
+  font-weight: 600;
+}
+
+.contact-item-details {
+  margin-top: 4px;
+  font-size: 0.9em;
+  color: var(--text-muted);
+  display: flex;
+  gap: 10px;
+}
+
+/* Settings styles */
+.contacts-template-setting textarea {
+  min-height: 200px;
+  width: 100%;
+  font-family: monospace;
+}
+
+/* Dark mode adjustments */
+.theme-dark .node-circle {
+  stroke-width: 2px;
+}
+
+.theme-dark .graph-legend text {
+  fill: var(--text-normal);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .contacts-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .detail-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-actions {
+    flex-direction: column;
+  }
+  
+  .graph-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .graph-search-input {
+    width: 100%;
+  }
+}
